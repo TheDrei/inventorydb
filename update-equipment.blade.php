@@ -230,7 +230,7 @@
           //END LOAD JSON SUB-CLASS
         }
 
-         //ADD COMPONENTS - FOR EDITING 
+         //ADD COMPONENTS - FOR EDITING - WOO PUTA
         window.addComponents = function(id){
 
         var equipment_id = $("#equipment_id").val(); 
@@ -246,7 +246,7 @@
                             $("#prop_component_"+componentsctr).val(objects[ctr].component_name);
                             $("#component_value_"+componentsctr).val(objects[ctr].value);
                             $("#component_quantity_"+componentsctr).val(objects[ctr].quantity);
-                            $("#equip_date_issued_"+componentsctr).val(objects[ctr].date_issued);
+                            $("#equip_date_issued_"+componentsctr).val();
                   }); }
 
             }); 
@@ -276,7 +276,7 @@
 
 
         //COMPONENT TEXT-INPUT 
-        $("#tbl_components_"+id+" tr:last").after("<tr><td> <input type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_"+proctr+"'></td><td><input type='number' class='form-control' name='component_value[]' id='component_value_"+proctr+"'></td><td><input type='number' class='form-control' name='component_quantity[]' id='component_quantity_"+proctr+"' value='1'></td><td><input type='text' class='form-control' name='equip_serial_num[]' value='"+propnum + "-" + proctr +"'></td><td><input type='date ' name='equip_date_issued[]' class='form-control'></td><td><select name='prop_assign[]' id='prop_assign_"+proassignctr+"' class='form-control prop_assign_ctr'><option value='"+propassign_formvar+"' selected>"+propassign_formvar+"</option></select></td><td>"+del_btn+"</td></tr>");
+        $("#tbl_components_"+id+" tr:last").after("<tr><td> <input type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_"+proctr+"'></td><td><input type='number' class='form-control' name='component_value[]' id='component_value_"+proctr+"'></td><td><input type='number' class='form-control' name='component_quantity[]' id='component_quantity_"+proctr+"' value='1'></td><td><input type='text' class='form-control' name='equip_serial_num[]' value='"+propnum + "-" + proctr +"'></td><td><input type='date' placeholder='yyyy-mm-dd' name='equip_date_issued[]' class='form-control'></td><td><select name='prop_assign[]' id='prop_assign_"+proassignctr+"' class='form-control prop_assign_ctr'><option value='"+propassign_formvar+"' selected>"+propassign_formvar+"</option></select></td><td>"+del_btn+"</td></tr>");
 
          $.getJSON( "{{ url('json/employees/all') }}", function( datajson ) {
                       jQuery.each(datajson,function(i,obj){
