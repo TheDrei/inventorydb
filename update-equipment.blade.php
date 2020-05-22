@@ -230,39 +230,6 @@
           //END LOAD JSON SUB-CLASS
         }
 
-
-
-  window.addComponents = function(id){
-        var del_btn = "";
-
-        
-         if(id != 0)
-        {
-     
-             del_btn = "<a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='delComponents(this)'><i class='fa fa-close'></i></a>";
-        }
-
-       //GET PROPERTY NUMBER WITH INCREMENTAL ID
-       var propnum = $("#prop_num_1").val();
-       var propassign_formvar = $("#propassign_form_1").val();
-
-       var proctr = 1 + ($(".prop_component_ctr").length);
-       var proassignctr = 1 + ($(".prop_assign_ctr").length);
-
-
-       //END GET PROPERTY NUMBER WITH INCREMENTAL ID
-        //COMPONENT TEXT-INPUT 
-        $("#tbl_components_"+id+" tr:last").after("<tr><td> <input type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_"+proctr+"'></div></td><td><input type='text' class='form-control' name='equip_serial_num[]' value='"+propnum + "-" + proctr +"'></td><td><input type='date' name='equip_date_issued[]' class='form-control'></td><td><select name='prop_assign[]' id='prop_assign_"+proassignctr+"' class='form-control prop_assign_ctr'><option value='"+propassign_formvar+"' selected>"+propassign_formvar+"</option></select></td><td>"+del_btn+"</td></tr>");
-
-         $.getJSON( "{{ url('json/employees/all') }}", function( datajson ) {
-                      jQuery.each(datajson,function(i,obj){
-                            $("#prop_assign_"+proassignctr).append("<option value='"+obj.fullname+"'>"+obj.fullname+"</option>");
-                  }); 
-
-            }); 
-        }
-
-
          //ADD COMPONENTS - FOR EDITING 
         window.addComponents = function(id){
 
@@ -270,27 +237,19 @@
 
         var componentsctr = 1 + ($(".prop_component_ctr").length);
 
-
-           // $.getJSON( "{{ url('json/components/all') }}", function( datajson ) {
-           //            var objects = datajson.filter(function(n){return n.equip_id==1});
-           //            jQuery.each(datajson, (function(i,obj){
-           //                $("#prop_component_"+componentsctr).val(obj.component_name);
-           //        }); 
-
-           //  }); 
-
                       $.getJSON( "{{ url('json/components/all') }}", function( datajson ) {
                         var objects = datajson.filter(function(n){return n.equip_id==equipment_id});
-                        jQuery.each(objects,function(i,obj){
-                            $("#prop_component_"+componentsctr).val(obj.component_name);
-                  }); 
+                        console.log(objects[0].component_name);
+                       
+                       for (var ctr = 0; ctr < componentsctr; ctr++) {
+                            $.each(objects,function(i,obj){
+                            $("#prop_component_"+componentsctr).val(objects[ctr].component_name);
+                            $("#component_value_"+componentsctr).val(objects[ctr].value);
+                            $("#component_quantity_"+componentsctr).val(objects[ctr].quantity);
+                            $("#equip_date_issued_"+componentsctr).val(objects[ctr].date_issued);
+                  }); }
 
             }); 
-
-           // $("{{ url('json/components/all') }}")
-           //   .filter(function (i,n){
-           //    return n.equip_id===equipment_id;
-           //  });
          
         var del_btn = "";
 
@@ -317,7 +276,7 @@
 
 
         //COMPONENT TEXT-INPUT 
-        $("#tbl_components_"+id+" tr:last").after("<tr><td> <input type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_"+proctr+"'></td><td><input type='number' class='form-control' name='component_value[]' id='component_value_"+proctr+"'></td><td><input type='number' class='form-control' name='component_quantity[]' id='component_quantity_"+proctr+"' value='1'></td><td><input type='text' class='form-control' name='equip_serial_num[]' value='"+propnum + "-" + proctr +"'></td><td><input type='date' name='equip_date_issued[]' class='form-control'></td><td><select name='prop_assign[]' id='prop_assign_"+proassignctr+"' class='form-control prop_assign_ctr'><option value='"+propassign_formvar+"' selected>"+propassign_formvar+"</option></select></td><td>"+del_btn+"</td></tr>");
+        $("#tbl_components_"+id+" tr:last").after("<tr><td> <input type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_"+proctr+"'></td><td><input type='number' class='form-control' name='component_value[]' id='component_value_"+proctr+"'></td><td><input type='number' class='form-control' name='component_quantity[]' id='component_quantity_"+proctr+"' value='1'></td><td><input type='text' class='form-control' name='equip_serial_num[]' value='"+propnum + "-" + proctr +"'></td><td><input type='date ' name='equip_date_issued[]' class='form-control'></td><td><select name='prop_assign[]' id='prop_assign_"+proassignctr+"' class='form-control prop_assign_ctr'><option value='"+propassign_formvar+"' selected>"+propassign_formvar+"</option></select></td><td>"+del_btn+"</td></tr>");
 
          $.getJSON( "{{ url('json/employees/all') }}", function( datajson ) {
                       jQuery.each(datajson,function(i,obj){
@@ -340,7 +299,7 @@
                   }); 
 
             }); 
-   
+  
 
     $("#subcategoryHidden").hide();
 	  $("#categoryHidden").hide();
